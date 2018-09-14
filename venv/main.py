@@ -3,23 +3,35 @@
 #Clayton A Turner
 from math import floor
 
-def egcd(a, b):
-    if a == 0:
-        return (b, 0, 1)
-    else:
-        g, x, y = egcd(b % a, a)
-        return (g, y - (b // a) * x, x)
+def mulinv(a: int, b: int):
+    #initialize other variables
+    q = 0
+    x = 0
+    y = 1
+    yl = 1
+    xl = 1
+    while b != 0:
+        q = a//b
+        a,b = b, a%b
+        x,xl = xl-q*x, x
+        y,yl = yl-q*y, y
+    print(f" x: {x} y: {y} q: {q} xl: {xl} yl: {yl}")
+    return xl
 
-def mulinv(b, n):
-    g, x, _ = egcd(b, n)
-    if g == 1:
-        return x % n
+def calculate_lnr(a1, b1):
+    a = int(a1)
+    b = int(b1)
+    q = a // b
+    r = a - (q * b)
+    return r
 
 a = 43  # type: int
 n = 307  # type: int
 b = 140  # type: int
-m = 20  # type: int
-inv = 115
+m = n-1  # type: int
+inv = calculate_lnr(a, n)
+inv = mulinv(inv, n)
+print(inv)
 Idx_List = []  # type: list(int)
 #Problem looks like A^x is congruent to b mod n
 
