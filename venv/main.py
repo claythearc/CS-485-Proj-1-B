@@ -4,7 +4,7 @@
 
 from math import floor, ceil, sqrt
 import time
-
+import timeit
 def mulinv(a: int, b: int, debug: bool = False):
     # initialize other variables
     q = 0
@@ -25,9 +25,9 @@ def mulinv(a: int, b: int, debug: bool = False):
 
 
 def main():
-    a = 43  # type: int
-    n = 307  # type: int
-    b = 140  # type: int
+    a = int(input("Input Value of A: "))  # type: int
+    n = int(input("Input Value of N: "))  # type: int
+    b = int(input("Input Value of B: "))  # type: int
     # m = ceiling of the square root of m
     m = ceil((sqrt(n)))  # type: int
     print(f"Ceiling of Sqrt(n): {m}")
@@ -72,7 +72,13 @@ def main():
 
 
 if __name__ == "__main__":
-    timenow = time.process_time_ns()
-    main()
-    timeafter = time.process_time_ns()
-    print(f"Process took: {timeafter - timenow}")
+    timenow = time.process_time()
+    walltime = time.time()
+    try:
+        main()
+    except IndexError:
+        print("Not found.")
+    timeafter = time.process_time()
+    wallafter = time.time()
+    print("Process took: {}".format(timeafter - timenow))
+    print("Wall Time: {}".format(wallafter - walltime))
