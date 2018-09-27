@@ -5,6 +5,32 @@
 from math import floor, ceil, sqrt
 import time
 import timeit
+import hashlib
+
+class HashTable:
+    def __init__(self):
+        self.values = dict()
+
+    def append(self,value):
+        key = hashlib.md5(value.encode()).hexdigest()
+        if key in self.values.keys():
+            raise KeyError("Not Unique!")
+        self.values[key] = value
+
+    def __str__(self):
+        temp = []
+        for k,v in self.values.items():
+            temp.append(v)
+        temp = "{ " + ", ".join(value for value in temp) + " }"
+        return temp
+
+    def get(self, value):
+        return self.values[hashlib.md5(value.encode()).hexdigest()]
+
+    def __contains__(self, item):
+        return self.values[hashlib.md5(item.encode()).hexdigest()]
+
+
 def mulinv(a: int, b: int, debug: bool = False):
     # initialize other variables
     q = 0
@@ -25,6 +51,14 @@ def mulinv(a: int, b: int, debug: bool = False):
 
 
 def main():
+
+    foo = HashTable()
+    foo.append("bla")
+    foo.append("bar")
+    print(foo.get("bar"))
+    print(foo)
+    exit()
+
     a = int(input("Input Value of A: "))  # type: int
     n = int(input("Input Value of N: "))  # type: int
     b = int(input("Input Value of B: "))  # type: int
